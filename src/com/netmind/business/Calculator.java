@@ -34,6 +34,7 @@ public class Calculator {
 				arrSum+=arr[index];
 			}
 		}
+		System.out.println(arr);
 		return arrSum;
 	}
 }
