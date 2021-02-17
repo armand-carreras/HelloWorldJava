@@ -37,4 +37,18 @@ public class Calculator {
 		System.out.println(Arrays.toString(arr));
 		return arrSum;
 	}
+	
+	
+	public int sumaParesArr(int[] arr) {
+		int arrSum = 0;
+		
+		for(int index = 0; index < arr.length; index++) {
+			if(index%2==0) {
+				arrSum+=arr[index];
+			}
+		}
+		
+		System.out.println(Arrays.toString(arr));
+		return arrSum;
+	}
 }
