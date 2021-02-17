@@ -13,7 +13,7 @@ public class Principal {
 		System.out.println(calculator.sumaPares());
 		
 		
-		int [] myIntArray = IntStream.rangeClosed(0, 100).toArray();
+		int [] myIntArray = IntStream.rangeClosed(0, 99).toArray();
 		
 		System.out.println(calculator.sumaParesArr(myIntArray));
 		
