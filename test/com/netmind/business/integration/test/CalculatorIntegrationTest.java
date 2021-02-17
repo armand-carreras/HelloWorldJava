@@ -47,6 +47,6 @@ public class CalculatorIntegrationTest {
 	public void testSumaParesArr() {
 		Calculator calculator = new Calculator();
 		int [] myIntArray = IntStream.rangeClosed(0, 99).toArray();
-		assertEquals(calculator.sumaParesArr(myIntArray),2550);
+		assertEquals(calculator.sumaParesArr(myIntArray),2450);
 	}
 }
