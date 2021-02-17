@@ -37,6 +37,7 @@ public class CalculatorIntegrationTest {
 	@Test
 	public void testSumaPares() {
 		Calculator calculator = new Calculator();
+		
 		assertEquals(calculator.sumaPares(),678);
 	}
 }
