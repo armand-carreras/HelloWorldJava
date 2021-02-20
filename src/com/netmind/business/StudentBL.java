@@ -31,4 +31,13 @@ public class StudentBL {
 		return result;
 	}
 
+	public int average(Student[] studentArray) {
+		int result = 0;
+		for (Student std : studentArray) {
+			result += std.getAge();
+		}
+		return result / studentArray.length;
+
+	}
+
 }

@@ -1,8 +1,11 @@
 package com.netmind.presentation;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
+import com.netmind.business.StudentBL;
+import com.netmind.dao.StudentDao;
 import com.netmind.model.Student;
 
 public class Principal {
@@ -20,7 +23,10 @@ public class Principal {
 		Scanner scanner = new Scanner(System.in);
 		int option = scanner.nextInt();
 		Date dateOfBirth = new Date();
+		StudentBL studentBL = new StudentBL();
+
 		switch (option) {
+
 		case 1:
 			int idStudent = dateOfBirth.hashCode();
 			System.out.println("Your desired option was 1 - ADD new Student");
@@ -42,12 +48,27 @@ public class Principal {
 			String[] stInfo = nameSurname.split(" ");
 			System.out.println(dateOfBirth.toLocaleString());
 			Student newStudent = new Student(idStudent, stInfo[0], stInfo[1], age, dateOfBirth);
+			StudentDao.addStudent(newStudent);
+			System.out.println(Arrays.deepToString(StudentDao.studentArr));
 
 			break;
 
 		case 2:
+			System.out.println("You've selected for the older Student: ");
+			System.out.println(studentBL.olderStudent(StudentDao.studentArr));
 
+			break;
+		case 3:
+			System.out.println("You've selected for the Age average");
+			System.out.println(studentBL.average(StudentDao.studentArr));
+
+			break;
+		case 4:
+			System.out.println("Exiting...");
+			System.exit(0);
 		}
+
+		scanner.close();
 
 	}
 
