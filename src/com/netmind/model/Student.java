@@ -4,8 +4,6 @@ import java.util.Date;
 
 public class Student {
 
-	// en mayusc porque necesitamos obj. para base de datos
-
 	private Integer idStudent;
 	private String name;
 	private String surname;
