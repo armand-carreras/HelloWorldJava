@@ -1,17 +1,41 @@
 package com.netmind.dao;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import com.netmind.model.Student;
 
 public class StudentDao {
 
-	public static Student[] studentArr;
+	public static ArrayList<Student> studentArrayList = new ArrayList<Student>();
 
-	public static void addStudent(Student student) {
+	public static ArrayList<Student> getStudentArrayList() {
+		return studentArrayList;
+	}
 
-		studentArr = Arrays.copyOf(studentArr, studentArr.length + 1);
-		studentArr[studentArr.length - 1] = student;
+	public static void setStudentArrayList(ArrayList<Student> studentArrayList) {
+		StudentDao.studentArrayList = studentArrayList;
+	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("StudentDao [getClass()=");
+		builder.append(getClass());
+		builder.append(", hashCode()=");
+		builder.append(hashCode());
+		builder.append(", toString()=");
+		builder.append(super.toString());
+		builder.append("]");
+		return builder.toString();
+	}
+
+	public static boolean add(Student student) {
+
+		return studentArrayList.add(student);
+
+	}
+
+	public static ArrayList<Student> get() {
+		return studentArrayList;
 	}
 }

@@ -50,12 +50,11 @@ public class Student {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Student(Integer idStudent, String name, String surname, Integer age, Date dateOfBirth) {
+	public Student(Integer idStudent, String name, String surname, Date dateOfBirth) {
 		super();
 		this.idStudent = idStudent;
 		this.name = name;
 		this.surname = surname;
-		this.age = age;
 		this.dateOfBirth = dateOfBirth;
 	}
 

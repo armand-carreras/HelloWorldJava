@@ -1,26 +1,30 @@
 package com.netmind.business;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 
+import com.netmind.dao.StudentDao;
 import com.netmind.model.Student;
 
 public class StudentBL {
 
-	private Student student = new Student();
+	public boolean add(Student student) {
 
-	public void setStudent(String name, String surname, Integer age, Date dateOfBirth) {
+		student.setAge(calculateAge(student.getDateOfBirth()));
 
-		Date date = new Date();
-		Integer idStudent = date.hashCode();
-		student.setIdStudent(idStudent);
-		student.setName(name);
-		student.setSurname(surname);
-		student.setAge(age);
-		student.setDateOfBirth(date);
-
+		return StudentDao.add(student);
 	}
 
-	public Student olderStudent(Student[] studentArray) {
+	private int calculateAge(Date dateOfBirth) {
+		Period edad = Period.between(dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+				LocalDate.now());
+		return edad.getYears();
+	}
+
+	public Student olderStudent(ArrayList<Student> studentArray) {
 		Student result = new Student();
 		result.setDateOfBirth(null);
 		for (Student stdnt : studentArray) {
@@ -31,12 +35,12 @@ public class StudentBL {
 		return result;
 	}
 
-	public int average(Student[] studentArray) {
+	public int average(ArrayList<Student> studentArray) {
 		int result = 0;
 		for (Student std : studentArray) {
 			result += std.getAge();
 		}
-		return result / studentArray.length;
+		return result / studentArray.size();
 
 	}
 
