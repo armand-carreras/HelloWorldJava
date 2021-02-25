@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,8 +25,10 @@ public class StudentFile {
 
 		boolean done = false;
 		StringBuilder builder = new StringBuilder();
-		builder.append(readFile());
+
+		builder.append(readFileToString());
 		builder.append("\n");
+
 		for (Student student : studentArray) {
 			builder.append(student.toFileFormat());
 		}
@@ -40,10 +47,9 @@ public class StudentFile {
 		return done;
 	}
 
-	public String readFile() {
+	public String readFileToString() {
 		String data = "";
-		// StringBuilder builder = new StringBuilder();
-		// String read = "";
+
 		try {
 			Stream<String> lines = Files.lines(path);
 			data = lines.collect(Collectors.joining("\n"));
@@ -54,6 +60,40 @@ public class StudentFile {
 		}
 		return data;
 	}
-	// assertEquals(str, read);
+
+	public List<Student> readFileToList() {
+		List<Student> studentList = new ArrayList<Student>();
+		List<String> lines = new ArrayList<String>();
+
+		try {
+			lines = Files.readAllLines(path);
+			studentList = stringToStudent(lines);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return studentList;
+	}
+
+	private List<Student> stringToStudent(List<String> list) {
+
+		List<Student> studentList = new ArrayList<Student>();
+		for (String str : list) {
+			String[] arr = str.split(",");
+			DateFormat format = new SimpleDateFormat("EE MMM dd HH:mm:ss zzzz yyyy");
+			Date date = new Date();
+			try {
+				date = format.parse(arr[4]);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			Student student = new Student(Integer.parseInt(arr[0]), arr[1], arr[2], Integer.parseInt(arr[3]), date);
+			studentList.add(student);
+		}
+		return studentList;
+
+	}
 
 }

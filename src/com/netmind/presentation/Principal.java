@@ -3,6 +3,7 @@ package com.netmind.presentation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import com.netmind.business.StudentBL;
@@ -14,6 +15,7 @@ public class Principal {
 
 	public enum Options {
 		EXIT, ADD, OLDEST, AVERAGE;
+
 	}
 
 	@SuppressWarnings("deprecation")
@@ -24,6 +26,7 @@ public class Principal {
 		boolean exit = false;
 		Scanner scanner = new Scanner(System.in);
 		StudentBL studentBL = new StudentBL();
+		StudentFile studentFile = new StudentFile();
 
 		do {
 
@@ -34,9 +37,12 @@ public class Principal {
 			System.out.println("   1 - ADD new Student");
 			System.out.println("   2 - Older Student");
 			System.out.println("   3 - Average age");
-			System.out.println("   0 - Exit");
+			System.out.println("   4 - WriteFile");
+			System.out.println("   5 - ReadFile");
+			System.out.println("   6 - Exit");
 
 			int option = Integer.parseInt(scanner.nextLine());
+			// Options options = Options.values()[option];
 
 			switch (option) {
 			case 1:
@@ -76,6 +82,21 @@ public class Principal {
 
 				break;
 			case 4:
+				System.out.println("Printing file");
+				List<Student> file = studentFile.readFileToList();
+				for (Student student : file) {
+					System.out.println(student.toString());
+				}
+				break;
+			case 5:
+				System.out.println("I'll proceed to add those students to Student.txt");
+				System.out.println(StudentDao.studentArrayList.toString());
+				boolean response = studentFile.writeFile(StudentDao.studentArrayList);
+				System.out.println(response);
+
+				break;
+
+			case 6:
 				System.out.println("Exiting...");
 
 				exit = true;
@@ -84,13 +105,7 @@ public class Principal {
 
 		} while (!exit);
 		scanner.close();
-		System.out.println("I'll proceed to add those students to Student.txt");
-		System.out.println(StudentDao.studentArrayList.toString());
-		StudentFile studentFile = new StudentFile();
-		boolean response = studentFile.writeFile(StudentDao.studentArrayList);
-		System.out.println(response);
-		String file = studentFile.readFile();
-		System.out.println(file);
+
 	}
 
 }
