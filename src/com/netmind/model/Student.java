@@ -62,6 +62,21 @@ public class Student {
 
 	}
 
+	public String toFileFormat() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(idStudent);
+		builder.append(",");
+		builder.append(name);
+		builder.append(",");
+		builder.append(surname);
+		builder.append(",");
+		builder.append(age);
+		builder.append(",");
+		builder.append(dateOfBirth);
+		builder.append("\n");
+		return builder.toString();
+	}
+
 	// StringBuilder just 1 string to RAM
 	@Override
 	public String toString() {

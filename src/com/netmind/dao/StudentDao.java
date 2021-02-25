@@ -1,18 +1,19 @@
 package com.netmind.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.netmind.model.Student;
 
 public class StudentDao {
 
-	public static ArrayList<Student> studentArrayList = new ArrayList<Student>();
+	public static List<Student> studentArrayList = new ArrayList<Student>();
 
-	public static ArrayList<Student> getStudentArrayList() {
+	public static List<Student> getStudentArrayList() {
 		return studentArrayList;
 	}
 
-	public static void setStudentArrayList(ArrayList<Student> studentArrayList) {
+	public static void setStudentArrayList(List<Student> studentArrayList) {
 		StudentDao.studentArrayList = studentArrayList;
 	}
 
@@ -35,7 +36,7 @@ public class StudentDao {
 
 	}
 
-	public static ArrayList<Student> get() {
+	public static List<Student> get() {
 		return studentArrayList;
 	}
 }
