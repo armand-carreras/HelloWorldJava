@@ -7,12 +7,13 @@ import java.util.Scanner;
 
 import com.netmind.business.StudentBL;
 import com.netmind.dao.StudentDao;
+import com.netmind.dao.StudentFile;
 import com.netmind.model.Student;
 
 public class Principal {
 
 	public enum Options {
-		ADD, OLDEST, AVERAGE, EXIT;
+		EXIT, ADD, OLDEST, AVERAGE;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -33,14 +34,14 @@ public class Principal {
 			System.out.println("   1 - ADD new Student");
 			System.out.println("   2 - Older Student");
 			System.out.println("   3 - Average age");
-			System.out.println("   4 - Exit");
+			System.out.println("   0 - Exit");
 
 			int option = Integer.parseInt(scanner.nextLine());
 
 			switch (option) {
 			case 1:
 				int idStudent = dateOfBirth.hashCode();
-				System.out.println("Your desired option was 1 - ADD new Student");
+				System.out.println("ADD new Student");
 				System.out.println("Enter Student name: ");
 				String name = scanner.nextLine();
 				System.out.println(name);
@@ -70,7 +71,7 @@ public class Principal {
 
 				break;
 			case 3:
-				System.out.println("You've selected for the Age average");
+				System.out.println("Age average");
 				System.out.println(studentBL.average(StudentDao.studentArrayList));
 
 				break;
@@ -83,6 +84,13 @@ public class Principal {
 
 		} while (!exit);
 		scanner.close();
+		System.out.println("I'll proceed to add those students to Student.txt");
+		System.out.println(StudentDao.studentArrayList.toString());
+		StudentFile studentFile = new StudentFile();
+		boolean response = studentFile.writeFile(StudentDao.studentArrayList);
+		System.out.println(response);
+		String file = studentFile.readFile();
+		System.out.println(file);
 	}
 
 }
