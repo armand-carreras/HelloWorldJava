@@ -21,15 +21,14 @@ import com.netmind.model.Student;
 
 public class HttpClient {
 	// 1 instance for reuse
-	private final String URI = "http://localhost:3000/students"; // json-server -> cmd json-server --watch db.json ->
-																	// server en localhost:3000
+	private final String URI = "http://localhost:3000/students";
 	private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
 	private void close() throws IOException {
 		httpClient.close();
 	}
 
-	private String get() throws Exception {
+	private String get() {
 		HttpGet request = new HttpGet(URI);
 		String result = "Nothing from entity";
 		request.addHeader(HttpHeaders.ACCEPT, "application/json");
