@@ -12,7 +12,9 @@ import com.netmind.model.Student;
 public class StudentBL {
 
 	public boolean add(Student student) {
-
+		Date date = new Date();
+		int idStudent = date.hashCode();
+		student.setIdStudent(idStudent);
 		student.setAge(calculateAge(student.getDateOfBirth()));
 
 		return StudentDao.add(student);

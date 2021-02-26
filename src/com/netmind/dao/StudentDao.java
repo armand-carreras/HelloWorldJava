@@ -17,19 +17,6 @@ public class StudentDao {
 		StudentDao.studentArrayList = studentArrayList;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("StudentDao [getClass()=");
-		builder.append(getClass());
-		builder.append(", hashCode()=");
-		builder.append(hashCode());
-		builder.append(", toString()=");
-		builder.append(super.toString());
-		builder.append("]");
-		return builder.toString();
-	}
-
 	public static boolean add(Student student) {
 
 		return studentArrayList.add(student);
