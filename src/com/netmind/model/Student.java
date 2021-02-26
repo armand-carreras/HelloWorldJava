@@ -1,5 +1,6 @@
 package com.netmind.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Student {
@@ -50,9 +51,8 @@ public class Student {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Student(Integer idStudent, String name, String surname, Date dateOfBirth) {
+	public Student(String name, String surname, Date dateOfBirth) {
 		super();
-		this.idStudent = idStudent;
 		this.name = name;
 		this.surname = surname;
 		this.dateOfBirth = dateOfBirth;
@@ -72,6 +72,8 @@ public class Student {
 	}
 
 	public String toFileFormat() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		String date = formatter.format(dateOfBirth);
 		StringBuilder builder = new StringBuilder();
 		builder.append(idStudent);
 		builder.append(",");
@@ -81,7 +83,7 @@ public class Student {
 		builder.append(",");
 		builder.append(age);
 		builder.append(",");
-		builder.append(dateOfBirth);
+		builder.append(date);
 		builder.append("\n");
 		return builder.toString();
 	}
