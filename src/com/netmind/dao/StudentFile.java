@@ -1,9 +1,12 @@
 package com.netmind.dao;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,30 +21,45 @@ import com.netmind.model.Student;
 
 public class StudentFile {
 
-	Property PATH = new Property();
-	Path path = Paths.get(PATH.getPath());
+	Property PROP = new Property();
+	Path path = Paths.get(PROP.getPath());
+	String fileName = PROP.getPath();
 
-	public boolean writeFile(List<Student> studentArray) {
+	public boolean write(List<Student> studentArray) throws IOException {
+
+		boolean done = false;
+
+		try (FileWriter fileWriter = new FileWriter(fileName, true);
+				BufferedWriter bufferWriter = new BufferedWriter(fileWriter)) {
+			for (Student student : studentArray) {
+				bufferWriter.write(student.toFileFormat());
+				bufferWriter.write(System.lineSeparator());
+			}
+			done = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return done;
+	}
+
+	public boolean writeFile(List<Student> studentArray) throws IOException {
 
 		boolean done = false;
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(readFileToString());
-		builder.append("\n");
-
 		for (Student student : studentArray) {
 			builder.append(student.toFileFormat());
 		}
-
 		String str = builder.toString();
 		byte[] strToBytes = str.getBytes();
-
 		try {
-			Files.write(path, strToBytes);
+			Files.write(path, strToBytes, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 			done = true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 
 		return done;
@@ -62,6 +80,7 @@ public class StudentFile {
 	}
 
 	public List<Student> readFileToList() {
+		System.out.println("readFile");
 		List<Student> studentList = new ArrayList<Student>();
 		List<String> lines = new ArrayList<String>();
 
@@ -76,11 +95,12 @@ public class StudentFile {
 	}
 
 	private List<Student> stringToStudent(List<String> list) {
-
+		System.out.println("StringToStudent");
 		List<Student> studentList = new ArrayList<Student>();
 		for (String str : list) {
 			String[] arr = str.split(",");
-			DateFormat format = new SimpleDateFormat("EE MMM dd HH:mm:ss zzzz yyyy");
+
+			DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 			Date date = new Date();
 			try {
 				date = format.parse(arr[4]);
